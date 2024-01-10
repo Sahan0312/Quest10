@@ -9,6 +9,6 @@ using namespace std;
 int main(){
 
 cout << "Im good" << endl;
-cout << "Very good" << endl;
+cout << "Very good daham" << endl;
 
 }
