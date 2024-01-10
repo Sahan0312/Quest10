@@ -1,4 +1,3 @@
-#include<iostream>
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -6,9 +5,23 @@
 
 using namespace std;
 
-int main(){
+class Minesweeper {
+private:
+    int rows;
+    int cols;
+    int totalMines;
+    vector<vector<char>> board;
+    vector<vector<bool>> mineLocations;
 
-cout << "Im good" << endl;
-cout << "Very good daham" << endl;
+public:
 
+
+};
+
+int main() {
+    int rows, cols, mines;
+
+    cout << "Enter the number of rows, columns, and mines: ";
+    cin >> rows >> cols >> mines;
+    return 0;
 }
