@@ -70,23 +70,109 @@ void Minesweeper::calculateNumbers() {
 }
 
 int Minesweeper::countAdjacentMines(int row, int col) const {
+    int count = 0;
+    for (int i = -1; i <= 1; ++i) {
+        for (int j = -1; j <= 1; ++j) {
+            int newRow = row + i;
+            int newCol = col + j;
+            if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && mineLocations[newRow][newCol]) {
+                count++;
+            }
+        }
+    }
+    return count;
     
 }
 
 void Minesweeper::revealCell(int row, int col) {
+    if (row < 0 || row >= rows || col < 0 || col >= cols || revealed[row][col]) {
+        return;
+    }
+
+    revealed[row][col] = true;
+
+    if (mineLocations[row][col]) {
+        // Game over if a mine is revealed
+        cout << "\nGame Over! You hit a mine." << endl;
+    } else if (board[row][col] == ' ') {
+        // If no adjacent mines, recursively reveal neighbors
+        for (int i = -1; i <= 1; ++i) {
+            for (int j = -1; j <= 1; ++j) {
+                revealCell(row + i, col + j);
+            }
+        }
+    }
     
 }
 
 bool Minesweeper::checkWin() const {
+
+     for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (!mineLocations[i][j] && !revealed[i][j]) {
+                return false;
+            }
+        }
+    }
+    return true;
     
 }
 
 void Minesweeper::printBoard() const {
+
+     cout << "  ";
+    for (int i = 0; i < cols; ++i) {
+        cout << char('A' + i) << " ";
+    }
+    cout << endl;
+
+    for (int i = 0; i < rows; ++i) {
+        cout << char('A' + i) << " ";
+        for (int j = 0; j < cols; ++j) {
+            if (!revealed[i][j]) {
+                cout << "c ";
+            } else if (mineLocations[i][j]) {
+                cout << "* ";
+            } else {
+                cout << board[i][j] << " ";
+            }
+        }
+        cout << endl;
+    }
+
+
     
 }
 
 
 bool Minesweeper::play(int row, int col, char command) {
+
+    if (row < 0 || row >= rows || col < 0 || col >= cols) {
+        cout << "Invalid input! Please enter valid row and column values." << endl;
+        return true;  // Continue the game
+    }
+
+    if (command == 'F') {
+        // Place a flag
+        if (flags > 0 && !revealed[row][col]) {
+            board[row][col] = 'F';
+            flags--;
+            revealCell(row, col);
+        } else {
+            cout << "Cannot place a flag here." << endl;
+        }
+    } else if (command == 'R') {
+        // Reveal the cell
+        revealCell(row, col);
+        if (checkWin()) {
+            cout << "\nCongratulations! You won!" << endl;
+            return false;  // End the game
+        }
+    } else {
+        cout << "Invalid command! Please enter F for flag or R for reveal." << endl;
+    }
+
+    return true;  // Continue the game
     
 }
 
