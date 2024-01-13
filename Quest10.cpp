@@ -177,5 +177,44 @@ bool Minesweeper::play(int row, int col, char command) {
 }
 
 int main() {
+    int choice;
+    cout << "Select the field option (1: 10x10, 2: 15x15, 3: 20x20): ";
+    cin >> choice;
+
+    int rows, cols, mines;
+    switch (choice) {
+        case 1:
+            rows = cols = 10;
+            mines = 12;
+            break;
+        case 2:
+            rows = cols = 15;
+            mines = 18;
+            break;
+        case 3:
+            rows = cols = 20;
+            mines = 24;
+            break;
+        default:
+            cout << "Invalid choice! Exiting..." << endl;
+            return 1;
+    }
+
+    Minesweeper game(rows, cols, mines);
+
+    while (true) {
+        game.printBoard();
+
+        int row, col;
+        char command;
+
+        cout << "Enter row and column (starting from 0) and command (F for flag, R for reveal): ";
+        cin >> row >> col >> command;
+
+        if (!game.play(row, col, command)) {
+            break;  // End the game
+        }
+    }
+
     
 }
