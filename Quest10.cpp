@@ -15,7 +15,7 @@ private:
 
 public:
 
-
+//Daham start
 private:
     void initializeBoard() {
         board.assign(rows, vector<char>(cols, ' '));
@@ -92,70 +92,10 @@ private:
         }
         return true;
     }
-
-
-public:
-    Minesweeper(int rows, int cols, int mines) : rows(rows), cols(cols), totalMines(mines) {
-        initializeBoard();
-        placeMines();
-        calculateNumbers();
-    }
-
-    void printBoard(bool showMines = false) const {
-        for (int i = 0; i < rows; ++i) {
-            for (int j = 0; j < cols; ++j) {
-                if (mineLocations[i][j] && showMines) {
-                    cout << "* ";
-                }
-                else {
-                    cout << board[i][j] << " ";
-                }
-            }
-            cout << endl;
-        }
-    }
-
-    bool play(int row, int col) {
-        if (mineLocations[row][col]) {
-            cout << "\nGame Over! You hit a mine." << endl;
-            return false;
-        }
-        else {
-            revealCell(row, col);
-            if (checkWin()) {
-                cout << "\nCongratulations! You won!" << endl;
-                return false;
-            }
-            return true;
-        }
-    }
-
-
-
 };
+//Daham End
+
 
 int main() {
-    int rows, cols, mines;
-
-    cout << "Enter the number of rows, columns, and mines: ";
-    cin >> rows >> cols >> mines;
     
-    Minesweeper game(rows, cols, mines);
-
-    while (true)
-    {
-        int row, col;
-
-        cout << "Enter row and column (starting from 0) to reveal: ";
-        cin >> row >> col;
-        game.printBoard();
-        if (!game.play(row, col)) {
-            break;
-        }
-    }
-
-    game.printBoard(true);
-
-    
-    return 0;
 }
