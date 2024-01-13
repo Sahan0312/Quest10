@@ -1,3 +1,7 @@
+//21/ENG/003 A.M.D.T Adikari
+//U.H.K.S.Herath 21/ENG/149
+//21_ENG_151 W.D.S.R.RUDRIGO
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -177,8 +181,9 @@ bool Minesweeper::play(int row, int col, char command) {
 }
 
 int main() {
+
     int choice;
-    cout << "Select the field option (1: 10x10, 2: 15x15, 3: 20x20): ";
+    cout << "\n\nSelect the field option (1: 10x10, 2: 15x15, 3: 20x20): ";
     cin >> choice;
 
     int rows, cols, mines;
@@ -201,6 +206,7 @@ int main() {
     }
 
     Minesweeper game(rows, cols, mines);
+    cout<<"\n\nNote That index starts at 0 \n\n";
 
     while (true) {
         game.printBoard();
